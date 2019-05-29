@@ -4,11 +4,11 @@ package com.muravey.entity;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class NotesEntity  implements Serializable {
 
-    private int id;
     private String title;
     private String description;
     private String date;
@@ -16,20 +16,15 @@ public class NotesEntity  implements Serializable {
     public NotesEntity(){
 
     }
-    public NotesEntity(int id, String title, String description, String data) {
-        this.id = id;
+    public NotesEntity( String title, String description, String data) {
         this.title = title;
         this.description = description;
         this.date = data;
     }
 
-    public int getId() {
-        return id;
+    public NotesEntity(ArrayList<Object> objects) {
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

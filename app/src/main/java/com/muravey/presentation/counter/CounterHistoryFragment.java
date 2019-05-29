@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ public class CounterHistoryFragment extends Fragment {
 
     private CounterViewModel mViewModel;
     private ActionHistoryAdapter mAdapter;
+    private RecyclerView recyclerView;
 
 
     public static CounterHistoryFragment newInstance() {
@@ -36,15 +39,19 @@ public class CounterHistoryFragment extends Fragment {
 
         return inflater.inflate(R.layout.history_fragment, container, false);
 
+
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initRecycler();
+
+
 
 
         if (getActivity() == null) return;
-
         mViewModel = ViewModelProviders.of(getActivity())
                 .get(CounterViewModel.class);
 
@@ -58,5 +65,12 @@ public class CounterHistoryFragment extends Fragment {
             }
         });
 
+    }
+
+      private void initRecycler() {
+        recyclerView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
     }
 }

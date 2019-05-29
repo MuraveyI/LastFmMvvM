@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +19,12 @@ import com.muravey.entity.NotesEntity;
 
 public class AddNoteFragment extends Fragment {
 
-    public EditText inputEdit;
-    public   Button buttonSave;
-
+    public Button buttonSave;
+    public EditText mInput1;
+    public EditText mInput2;
+    public EditText mInput3;
     private NotesViewModel mViewModel;
+
 
     public static AddNoteFragment newInstance() {
         return new AddNoteFragment();
@@ -37,21 +41,29 @@ public class AddNoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputEdit = view.findViewById(R.id.input);
+
+        mInput1 = view.findViewById(R.id.input1);
+        mInput2 = view.findViewById(R.id.input2);
+        mInput3 = view.findViewById(R.id.input3);
         buttonSave = view.findViewById(R.id.save);
 
 
-        inputEdit.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewModel.addNotes();
+                mInput1.setText("click");
+                mInput2.setText("click");
+                mInput3.setText("click");
+
             }
         });
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
 
         if (getActivity() == null)
         mViewModel = ViewModelProviders.of(this)
@@ -61,13 +73,16 @@ public class AddNoteFragment extends Fragment {
         mViewModel.notes.observe(this, new Observer<NotesEntity>() {
             @Override
             public void onChanged(@Nullable NotesEntity notesEntity) {
-                if (notesEntity != null) {
-                    notesEntity.setTitle(notesEntity.getTitle());
-                    notesEntity.setDescription(notesEntity.getDescription());
-                    notesEntity.setId(notesEntity.getId());
-                    notesEntity.setDate(notesEntity.getDate());
+                if (notesEntity != null){
+                    mInput1.setText(toString());
+                    mInput2.setText(toString());
+                    mInput3.setText(toString());
                 }
             }
         });
+
+
     }
+
+
 }

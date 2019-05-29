@@ -29,7 +29,7 @@ public class CounterActivity extends AppCompatActivity {
 
     public class CounterPagerAdapter extends FragmentPagerAdapter {
 
-        private final static int PAGES_COUNT = 2;
+        private final static int PAGES_COUNT = 4;
 
         public CounterPagerAdapter(FragmentManager fm) {
             super(fm);
