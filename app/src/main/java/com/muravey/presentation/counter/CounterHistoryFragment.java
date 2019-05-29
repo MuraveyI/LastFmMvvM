@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.muravey.R;
+import com.muravey.presentation.counter.recycler.ActionHistoryAdapter;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CounterHistoryFragment extends Fragment {
 
 
     private CounterViewModel mViewModel;
+    private ActionHistoryAdapter mAdapter;
 
 
     public static CounterHistoryFragment newInstance() {

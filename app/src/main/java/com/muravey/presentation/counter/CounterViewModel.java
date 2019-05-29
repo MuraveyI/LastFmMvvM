@@ -5,6 +5,9 @@ import android.arch.lifecycle.ViewModel;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
+import com.muravey.App;
+import com.muravey.data.ActionsRepository;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,6 +16,7 @@ public class CounterViewModel extends ViewModel {
     MutableLiveData<Integer> counter = new MutableLiveData<>();
     MutableLiveData actionHistory = new MutableLiveData<>();
     private ArrayList<Pair<String, Date>> history = new ArrayList<>();
+    private ActionsRepository repository = App.actionsRepository;
 
 
     public CounterViewModel() {
@@ -24,8 +28,7 @@ public class CounterViewModel extends ViewModel {
 
     public void addAction(String action) {
         history.add(new Pair<>(action, new Date()));
-        actionHistory.setValue(history);
-
+        repository.addAction(action);
     }
 
     void increment() {
@@ -43,6 +46,6 @@ public class CounterViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        Log.d("qwe", "ViewModel clear");
+        Log.d("qwe", "ViewModel cleared");
     }
 }

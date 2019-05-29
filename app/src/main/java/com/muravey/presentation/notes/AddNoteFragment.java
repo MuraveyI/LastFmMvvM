@@ -1,5 +1,6 @@
 package com.muravey.presentation.notes;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,13 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.muravey.R;
+import com.muravey.entity.NotesEntity;
 
 public class AddNoteFragment extends Fragment {
 
     public EditText inputEdit;
     public   Button buttonSave;
 
-    private AddNotesViewModel mViewModel;
+    private NotesViewModel mViewModel;
 
     public static AddNoteFragment newInstance() {
         return new AddNoteFragment();
@@ -42,7 +44,7 @@ public class AddNoteFragment extends Fragment {
         inputEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mViewModel.addNotes();
             }
         });
     }
@@ -50,7 +52,22 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AddNotesViewModel.class);
-    }
 
+        if (getActivity() == null)
+        mViewModel = ViewModelProviders.of(this)
+                .get(NotesViewModel.class);
+
+
+        mViewModel.notes.observe(this, new Observer<NotesEntity>() {
+            @Override
+            public void onChanged(@Nullable NotesEntity notesEntity) {
+                if (notesEntity != null) {
+                    notesEntity.setTitle(notesEntity.getTitle());
+                    notesEntity.setDescription(notesEntity.getDescription());
+                    notesEntity.setId(notesEntity.getId());
+                    notesEntity.setDate(notesEntity.getDate());
+                }
+            }
+        });
+    }
 }
